@@ -7,7 +7,8 @@ fn main() {
     };
     // let problem = Problem { nums: vec![3,2,4], target: 6 };
     // let problem = Problem { nums: vec![3,3], target: 6 };
-    let result = problem.two_sum();
+    // let result = problem.two_sum();
+    let result = problem.two_sum2();
 
     println!("{:?}", result);
 }
@@ -19,6 +20,7 @@ struct Problem {
 
 trait Solution {
     fn two_sum(self) -> Vec<i32>;
+    fn two_sum2(self) -> Vec<i32>;
 }
 
 impl Solution for Problem {
@@ -35,5 +37,18 @@ impl Solution for Problem {
         }
 
         return vec![];
+    }
+
+    fn two_sum2(self) -> Vec<i32> {
+        let mut prev_map: HashMap<i32, i32> = HashMap::new();
+
+        for (i, &num) in self.nums.iter().enumerate() {
+            match prev_map.get(&(self.target - num)) {
+                Some(&i2) => return vec![i2, i as i32],
+                None => prev_map.insert(num, i as i32),
+            };
+        }
+        
+        vec![]
     }
 }
